@@ -127,6 +127,10 @@ module "vpc_dev" {
 
 ![изображение](https://github.com/stepynin-georgy/ter-hw4/blob/main/img/Screenshot_123.png)
 
+![изображение](https://github.com/stepynin-georgy/ter-hw4/blob/main/img/Screenshot_125.png)
+
+![изображение](https://github.com/stepynin-georgy/ter-hw4/blob/main/img/Screenshot_126.png)
+
 ## Дополнительные задания (со звёздочкой*)
 
 **Настоятельно рекомендуем выполнять все задания со звёздочкой.**   Они помогут глубже разобраться в материале.   
