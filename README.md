@@ -68,12 +68,35 @@ packages:
 
 1. Напишите локальный модуль vpc, который будет создавать 2 ресурса: **одну** сеть и **одну** подсеть в зоне, объявленной при вызове модуля, например: ```ru-central1-a```.
 
-
+[network.tf](https://github.com/stepynin-georgy/ter-hw4/blob/main/vpc/network.tf)
 
 2. Вы должны передать в модуль переменные с названием сети, zone и v4_cidr_blocks.
-3. Модуль должен возвращать в root module с помощью output информацию о yandex_vpc_subnet. Пришлите скриншот информации из terraform console о своем модуле. Пример: > module.vpc_dev  
+3. Модуль должен возвращать в root module с помощью output информацию о yandex_vpc_subnet. Пришлите скриншот информации из terraform console о своем модуле. Пример: > module.vpc_dev
+
+![изображение](https://github.com/stepynin-georgy/ter-hw4/blob/main/img/Screenshot_124.png)
+
 4. Замените ресурсы yandex_vpc_network и yandex_vpc_subnet созданным модулем. Не забудьте передать необходимые параметры сети из модуля vpc в модуль с виртуальной машиной.
+
+```
+module "test-vm-1" {
+  source         = "git::https://github.com/udjin10/yandex_compute_instance.git?ref=main"
+  env_name       = "develop" 
+  network_id     = module.vpc_dev.network_id
+  subnet_zones   = ["ru-central1-a"]
+  subnet_ids     = [module.vpc_dev.subnet_id]
+  instance_name  = "webs"
+  instance_count = 1
+  image_family   = "ubuntu-2004-lts"
+  public_ip      = true
+```
+
 5. Сгенерируйте документацию к модулю с помощью terraform-docs.
+
+```
+terraform-docs markdown table --output-file README.md --output-mode inject .
+```
+
+[README.md](https://github.com/stepynin-georgy/ter-hw4/blob/main/vpc/README.md)
  
 Пример вызова
 
@@ -88,10 +111,21 @@ module "vpc_dev" {
 
 ### Задание 3
 1. Выведите список ресурсов в стейте.
+
+![изображение](https://github.com/stepynin-georgy/ter-hw4/blob/main/img/Screenshot_120.png)
+
 2. Полностью удалите из стейта модуль vpc.
+
+![изображение](https://github.com/stepynin-georgy/ter-hw4/blob/main/img/Screenshot_121.png)
+
 3. Полностью удалите из стейта модуль vm.
+
+![изображение](https://github.com/stepynin-georgy/ter-hw4/blob/main/img/Screenshot_122.png)
+
 4. Импортируйте всё обратно. Проверьте terraform plan. Значимых(!!) изменений быть не должно.
 Приложите список выполненных команд и скриншоты процессы.
+
+![изображение](https://github.com/stepynin-georgy/ter-hw4/blob/main/img/Screenshot_123.png)
 
 ## Дополнительные задания (со звёздочкой*)
 
